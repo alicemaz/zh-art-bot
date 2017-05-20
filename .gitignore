@@ -1,0 +1,8 @@
+*~
+*.swp
+*.swo
+paintings
+paintings/
+dist/
+.cabal-sandbox/
+cabal.sandbox.config
