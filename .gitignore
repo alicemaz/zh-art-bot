@@ -1,6 +1,7 @@
 *~
 *.swp
 *.swo
+.credentials
 paintings
 paintings/
 dist/

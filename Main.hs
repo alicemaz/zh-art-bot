@@ -3,13 +3,23 @@
 module Main where
 
 import Data.List
+import Data.Semigroup
+import qualified Data.ByteString.Char8 as BC
+import qualified Data.Text as T
 import Control.Monad.Random
 import System.Directory
+import Web.Twitter.Conduit
 
 import Parse
 
 mediaDir :: String
 mediaDir = "paintings/"
+
+mkCreds :: [BC.ByteString] -> TWInfo
+mkCreds (key:sec:tok:toksec:[]) = setCredential keys tokens def
+    where keys = twitterOAuth { oauthConsumerKey = key, oauthConsumerSecret = sec }
+          tokens = Credential [("oauth_token", tok), ("oauth_token_secret", toksec)]
+mkCreds _ = undefined
 
 -- the hundred bridges series is 10% of the corpus lol
 weightFilename :: String -> (String, Rational)
@@ -23,5 +33,8 @@ main = do
     file <- fromList $ weightFilename <$> files
     let Right parsed = parseFilename file
 
-    putStrLn $ file ++ " / " ++ parsed
+    creds <- (mkCreds . BC.lines) <$> BC.readFile ".credentials"
+    mgr <- newManager tlsManagerSettings
+
+    _ <- call creds mgr $ updateWithMedia (T.pack parsed) (MediaFromFile (mediaDir <> file))
     return ()

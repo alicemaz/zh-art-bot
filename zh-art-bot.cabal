@@ -20,9 +20,12 @@ executable zh-art-bot
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.9 && <4.10,
+                       bytestring,
+                       text,
                        MonadRandom == 0.5.*,
                        directory == 1.3.1.*,
-                       parsec == 3.1.*
+                       parsec == 3.1.*,
+                       twitter-conduit == 0.2.*
   -- hs-source-dirs:      
   default-language:    Haskell2010
   ghc-options:         -Wall
