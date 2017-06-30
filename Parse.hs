@@ -3,7 +3,7 @@
 
 module Parse (parseFilename) where
 
-import Data.Semigroup
+import Data.Monoid
 import Data.Maybe
 import Control.Monad
 import Text.Parsec

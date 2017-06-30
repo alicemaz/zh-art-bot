@@ -3,7 +3,7 @@
 module Main where
 
 import Data.List
-import Data.Semigroup
+import Data.Monoid
 import qualified Data.ByteString.Char8 as BC
 import qualified Data.Text as T
 import Control.Monad.Random
